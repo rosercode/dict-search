@@ -1,0 +1,44 @@
+server:
+  port: 5444
+  servlet:
+    context-path: /
+
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: password
+    url: jdbc:mysql://localhost:3306/dict?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: dict
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/resources/static
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# mybatis 日志配置
+mybatis:
+  type-aliases-package: com.example.dict.po
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 日志文件的输入路径
+logging:
+  file:
+    name: ./logs/log.out
+
+
+# 文档工具
+knife4j:
+  # 开启增强配置
+  enable: true
+  # 开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: false
+    # Basic认证用户名
+    username: test
+    # Basic认证密码
+    password: 123
