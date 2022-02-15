@@ -8,7 +8,7 @@ import lombok.Data;
 @ApiModel(value="前端数据模型", description="前端数据模型")
 public class ParamModel1 {
 
-    @ApiModelProperty(value = "type")
+    @ApiModelProperty(value = "类型")
     private String type;
 
     @ApiModelProperty(value = "level")

@@ -63,7 +63,23 @@ public class DictSearchController {
     public List<Dict1> majorSearch(ParamModel1 model){
         model.setType("专业代码");
         return searchService.majorSearch(model);
-
     }
+
+    @ApiOperation(value = "行业代码", notes = "行业代码")
+    @GetMapping(value = "/industry")
+    public List<Dict1> industrySearch(ParamModel1 model){
+        model.setType("行业代码");
+        return searchService.industrySearch(model);
+    }
+
+
+    @ApiOperation(value = "职工(工种)代码", notes = "职工(工种)代码")
+    @GetMapping(value = "/career")
+    public List<Dict1> careerSearch(ParamModel1 model){
+        model.setType("职业工种");
+        return searchService.careerSearch(model);
+    }
+
+
 
 }

@@ -29,4 +29,25 @@ public class SearchService {
         return dictMapper.majorSearch(model);
     }
 
+
+
+
+    public List<Dict1> industrySearch(ParamModel1 model){
+        if (model.getCode_value2()==null || model.getCode_value2().equals("")){
+            model.setCode_value2("%");
+        }else {
+            model.setCode_value2(model.getCode_value2()+"%");
+        }
+        return dictMapper.industrySearch(model);
+    }
+
+
+    public List<Dict1> careerSearch(ParamModel1 model){
+        if (model.getCode_value2()==null || model.getCode_value2().equals("")){
+            model.setCode_value2("%");
+        }else {
+            model.setCode_value2(model.getCode_value2()+"%");
+        }
+        return dictMapper.careerSearch(model);
+    }
 }
