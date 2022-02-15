@@ -58,6 +58,57 @@
                 </div>
             </form>
         </div>
+
+        <hr>
+        <div class="row">
+            <h2>行业代码</h2>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputName2">一级</label>
+                    <select class="form-control" id="industrySelect1" onchange="industrySelectEvent1(event)">
+                        <option v-for="item in industryData.industryOne" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">二级</label>
+                    <select class="form-control" id="industrySelect2" onchange="industrySelectEvent2(event)">
+                        <option v-for="item in industryData.industryTwo" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">三级</label>
+                    <select class="form-control" id="industrySelect3">
+                        <option v-for="item in industryData.industryThree" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+
+        <hr>
+        <div class="row">
+            <h2>职工(工种)代码</h2>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputName2">一级</label>
+                    <select class="form-control" id="careerSelect1" onchange="careerSelectEvent1(event)">
+                        <option v-for="item in careerData.careerOne" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">二级</label>
+                    <select class="form-control" id="careerSelect2" onchange="careerSelectEvent2(event)">
+                        <option v-for="item in careerData.careerTwo" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">三级</label>
+                    <select class="form-control" id="careerSelect3">
+                        <option v-for="item in careerData.careerThree" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -89,6 +140,9 @@
 
                     axios.get('/dict/major?level='+5+"&code_value2="+item[i].code_value2).then(function (response){
                         mainData.majorData.majorThree = response.data
+                        mainData.majorData.majorTour = []
+
+
                     }).catch(function (error) {
                         console.log(error);
                     });
@@ -113,13 +167,97 @@
             }
         }
 
+
+
+        function industrySelectEvent1(event){
+            const node = event.target
+
+
+            for (let i = 0; i < mainData.industryData.industryOne.length; i++) {
+                const item = mainData.industryData.industryOne
+                if(item[i].code_name == node.value){
+
+                    axios.get('/dict/industry?level='+3+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.industryData.industryTwo = response.data
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+        function industrySelectEvent2(event){
+            const node = event.target
+
+            for (let i = 0; i < mainData.industryData.industryTwo.length; i++) {
+                const item = mainData.industryData.industryTwo
+                if(item[i].code_name == node.value){
+
+                    axios.get('/dict/industry?level='+4+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.industryData.industryThree = response.data
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+
+
+        function careerSelectEvent1(event){
+            const node = event.target
+
+
+            for (let i = 0; i < mainData.careerData.careerOne.length; i++) {
+                const item = mainData.careerData.careerOne
+                if(item[i].code_name == node.value){
+
+
+                    // 获取第二级数据
+                    axios.get('/dict/career?level='+7+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.careerData.careerTwo = response.data
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+        function careerSelectEvent2(event){
+            const node = event.target
+
+            for (let i = 0; i < mainData.careerData.careerTwo.length; i++) {
+                const item = mainData.careerData.careerTwo
+                if(item[i].code_name == node.value){
+
+                    // 获取第三级数据
+                    axios.get('/dict/career?level='+9+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.careerData.careerThree = response.data
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+
         const mainData = {
             nationList:{},
-            majorData: {
+            majorData: {  // 专业代码
                 majorOne: {},
                 majorTwo: {},
                 majorThree:{},
                 majorTour:{}
+            },industryData:{  // 行业代码
+                industryOne: {},
+                industryTwo: {},
+                industryThree:{},
+            },careerData: {  // 职业工种
+                careerOne: {},
+                careerTwo: {},
+                careerThree: {}
             }
         }
 
@@ -134,7 +272,7 @@
                     console.log(error);
                 });
 
-                // 获取 mainData.majorData 中的默认值
+                // 专业代码 获取 mainData.majorData 中的默认值
                 axios.get('/dict/major?level='+1).then(function (response){
                     mainData.majorData.majorOne = response.data
                     axios.get('/dict/major?level='+3+"&code_value2="+response.data[0].code_value2).then(function (response){
@@ -155,8 +293,56 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
-            },
 
+                // 行业代码
+                axios.get('/dict/industry?level='+1).then(function (response){
+                    mainData.industryData.industryOne = response.data
+
+                    axios.get('/dict/industry?level='+3+"&code_value2="+response.data[0].code_value2).then(function (response){
+                        mainData.industryData.industryTwo = response.data
+
+                        axios.get('/dict/industry?level='+4+"&code_value2="+response.data[0].code_value2).then(function (response){
+                            mainData.industryData.industryThree = response.data
+
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+
+
+                // 职工(工种)代码 初始化
+                axios.get('/dict/career?level='+4).then(function (response){
+                    mainData.careerData.careerOne = response.data
+
+                    axios.get('/dict/career?level='+7+"&code_value2="+response.data[0].code_value2).then(function (response){
+                        mainData.careerData.careerTwo = response.data
+
+                        axios.get('/dict/career?level='+9+"&code_value2="+response.data[0].code_value2).then(function (response){
+                            mainData.careerData.careerThree = response.data
+
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+            },
             methods:{
 
             }
