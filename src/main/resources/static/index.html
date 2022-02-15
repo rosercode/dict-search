@@ -23,21 +23,104 @@
                 <div class="form-group">
                     <label for="exampleInputName2">Nation</label>
                     <select class="form-control" id="exampleInputName2">
-                        <option v-for="nation in nationList" value="nation.code_name">{{nation.code_name}}</option>
+                        <option v-for="item in nationList" v-bind:value='item.code_name'>{{item.code_name}}</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-
+        <hr>
         <div class="row">
-
+            <h2>专业代码</h2>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputName2">一级</label>
+                    <select class="form-control" id="majorSelect1" onchange="majorSelectEvent1(event)">
+                        <option v-for="item in majorData.majorOne" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">二级</label>
+                    <select class="form-control" id="majorSelect2" onchange="majorSelectEvent2(event)">
+                        <option v-for="item in majorData.majorTwo" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">三级</label>
+                    <select class="form-control" id="majorSelect3" onchange="majorSelectEvent3(event)">
+                        <option v-for="item in majorData.majorThree" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">四级</label>
+                    <select class="form-control" id="majorSelect4">
+                        <option v-for="item in majorData.majorTour" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
+
+        function majorSelectEvent1(event){
+            const node = event.target
+
+
+            for (let i = 0; i < mainData.majorData.majorOne.length; i++) {
+                const item = mainData.majorData.majorOne
+                if(item[i].code_name == node.value){
+
+                    axios.get('/dict/major?level='+3+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.majorData.majorTwo = response.data
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+        function majorSelectEvent2(event){
+            const node = event.target
+
+
+            for (let i = 0; i < mainData.majorData.majorTwo.length; i++) {
+                const item = mainData.majorData.majorTwo
+                if(item[i].code_name == node.value){
+
+                    axios.get('/dict/major?level='+5+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.majorData.majorThree = response.data
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+
+        function majorSelectEvent3(event){
+            const node = event.target
+
+            for (let i = 0; i < mainData.majorData.majorThree.length; i++) {
+                const item = mainData.majorData.majorThree
+                if(item[i].code_name == node.value){
+
+                    axios.get('/dict/major?level='+7+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.majorData.majorTour = response.data
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
         const mainData = {
-            nationList:{}
+            nationList:{},
+            majorData: {
+                majorOne: {},
+                majorTwo: {},
+                majorThree:{},
+                majorTour:{}
+            }
         }
 
         new Vue({
@@ -51,6 +134,27 @@
                     console.log(error);
                 });
 
+                // 获取 mainData.majorData 中的默认值
+                axios.get('/dict/major?level='+1).then(function (response){
+                    mainData.majorData.majorOne = response.data
+                    axios.get('/dict/major?level='+3+"&code_value2="+response.data[0].code_value2).then(function (response){
+                        mainData.majorData.majorTwo = response.data
+                        axios.get('/dict/major?level='+5+"&code_value2="+response.data[0].code_value2).then(function (response){
+                            mainData.majorData.majorThree = response.data
+                            axios.get('/dict/major?level='+7+"&code_value2="+response.data[0].code_value2).then(function (response){
+                                mainData.majorData.majorTour = response.data
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
 
             methods:{
