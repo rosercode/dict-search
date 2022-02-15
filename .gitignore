@@ -1,0 +1,8 @@
+HELP.md
+mvnw.cmd
+mvnw
+dict-demo.iml
+target/
+.mvn/
+.idea/
+logs/
