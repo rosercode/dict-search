@@ -1,6 +1,7 @@
 package com.example.dict.controller;
 
 
+import com.example.dict.model.ParamModel1;
 import com.example.dict.po.Dict1;
 import com.example.dict.service.SearchService;
 import io.swagger.annotations.Api;
@@ -50,5 +51,19 @@ public class DictSearchController {
         return searchService.nationSearch();
     }
 
+
+    /**
+     * 专业相关搜索接口
+     * @param model
+     * @return
+     */
+    // TODO: 2022/2/15
+    @ApiOperation(value = "专业", notes = "专业相关搜索接口")
+    @GetMapping(value = "/major")
+    public List<Dict1> majorSearch(ParamModel1 model){
+        model.setType("专业代码");
+        return searchService.majorSearch(model);
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.dict.mapper;
 
+import com.example.dict.model.ParamModel1;
 import com.example.dict.po.Dict1;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -45,13 +46,16 @@ public interface DictMapper {
      */
 
     /*
+
+            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and code_value2 like '%' and length(code_value2)=1;
+
         本科生 -> 工学 -> 电气信息类 -> 网络工程
         第一级：
-            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and code_value2 like 'B%' and length(code_value2)=3
+            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and length(code_value2)=3 and code_value2 like 'B%';
         第二级
-            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and code_value2 like 'B%' and length(code_value2)=5 and code_value2 like 'B08%'
+            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and length(code_value2)=5 and code_value2 like 'B08%'
         第三级
-            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and code_value2 like 'B%' and length(code_value2)=7 and code_value2 like 'B0806%'
+            SELECT code_name,code_value2 FROM code_dictionary where code_value1= '专业代码' and length(code_value2)=7 and code_value2 like 'B0806%'
 
      */
 
@@ -60,5 +64,10 @@ public interface DictMapper {
     @Select("SELECT code_name,code_value2 FROM code_dictionary where code_value1 = '民族'")
     public List<Dict1> nationSearch();
 
+
+    // 专业搜索
+    @Select("SELECT code_name,code_value2 FROM code_dictionary " +
+            "where code_value1= '专业代码' and length(code_value2)=#{level} and code_value2 like #{code_value2}")
+    public List<Dict1> majorSearch(ParamModel1 model);
 
 }
