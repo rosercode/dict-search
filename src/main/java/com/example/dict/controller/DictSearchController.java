@@ -1,6 +1,7 @@
 package com.example.dict.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.dict.model.ParamModel1;
 import com.example.dict.po.Dict1;
 import com.example.dict.service.SearchService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,6 +82,19 @@ public class DictSearchController {
         return searchService.careerSearch(model);
     }
 
+    @ApiOperation(value = "地区联动", notes = "地区联动（省份->城市->县镇）")
+    @GetMapping(value = "/area")
+    public List<JSONObject> areaSearch(ParamModel1 model){
+        if (model.getLevel() == 1){
+            return searchService.listProvince();
+        }
+        if (model.getLevel() == 2){
+            return searchService.findCity(Integer.valueOf(model.getCode_value2()));
+        }
 
-
+        if (model.getLevel() == 3){
+            return searchService.findDistrict(Integer.valueOf(model.getCode_value2()));
+        }
+        return new ArrayList<>();
+    }
 }

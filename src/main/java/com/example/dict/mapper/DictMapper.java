@@ -1,8 +1,11 @@
 package com.example.dict.mapper;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.dict.model.ParamModel1;
 import com.example.dict.po.Dict1;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -72,12 +75,10 @@ public interface DictMapper {
     public List<Dict1> majorSearch(ParamModel1 model);
 
 
-
     // 行业代码
     @Select("SELECT code_name,code_value2 FROM code_dictionary " +
         "where code_value1='行业代码' and code_type like 'AAB%' and length(code_value2)=#{level} and code_value2 like #{code_value2}")
     public List<Dict1> industrySearch(ParamModel1 model);
-
 
 
     // 职工(工种)代码
@@ -85,5 +86,17 @@ public interface DictMapper {
             "where code_value1= '职业工种' and length(code_value2)=#{level} and code_value2 like #{code_value2}")
     public List<Dict1> careerSearch(ParamModel1 model);
 
+
+    // 获取省份的列表
+    @Select("SELECT ProvinceID, ProvinceName FROM dict_province")
+    public List<JSONObject> listProvince();
+
+    // 获取某个省下的所有城市
+    @Select("SELECT CityID, CityName, ZipCode, ProvinceID FROM dict_city WHERE ProvinceID=#{ProvinceID};")
+    public List<JSONObject> findCity(@Param("ProvinceID") Integer id);
+
+    // 获取指定城市下的所有县镇
+    @Select("SELECT DistrictID, DistrictName, CityID FROM dict_district WHERE CityID=#{CityID};")
+    public List<JSONObject> findDistrict(@Param("CityID") Integer id);
 
 }

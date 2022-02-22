@@ -109,6 +109,32 @@
                 </div>
             </form>
         </div>
+
+        <hr>
+        <div class="row">
+            <h2>地区联动</h2>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputName2">一级</label>
+                    <select class="form-control" id="areaSelect1" onchange="areaSelectEvent1(event)">
+                        <option v-for="item in areaData.areaOne" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">二级</label>
+                    <select class="form-control" id="areaSelect2" onchange="areaSelectEvent2(event)">
+                        <option v-for="item in areaData.areaTwo" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName2">三级</label>
+                    <select class="form-control" id="areaSelect3">
+                        <option v-for="item in areaData.areaThree" v-bind:value='item.code_name'>{{item.code_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script>
@@ -243,6 +269,57 @@
         }
 
 
+
+        function areaSelectEvent1(event){
+            const node = event.target
+
+
+            for (let i = 0; i < mainData.areaData.areaOne.length; i++) {
+                const item = mainData.areaData.areaOne
+                if(item[i].code_name == node.value){
+
+
+                    // 获取第二级数据
+                    axios.get('/dict/area?level='+2+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.areaData.areaTwo = []
+
+                        for (let i = 0; i < response.data.length; i++) {
+                            const item = response.data[i]
+                            mainData.areaData.areaTwo.push({"code_name":item.CityName,"code_value2":item.CityID})
+                        }
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+        function areaSelectEvent2(event){
+            const node = event.target
+
+            for (let i = 0; i < mainData.areaData.areaTwo.length; i++) {
+                const item = mainData.areaData.areaTwo
+                if(item[i].code_name == node.value){
+
+                    // 获取第三级数据
+                    axios.get('/dict/area?level='+3+"&code_value2="+item[i].code_value2).then(function (response){
+                        mainData.areaData.areaThree = []
+                        for (let i = 0; i < response.data.length; i++) {
+                            const item = response.data[i]
+                            mainData.areaData.areaThree.push({"code_name":item.DistrictName,"code_value2":item.DistrictID})
+                        }
+
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+
+
+
         const mainData = {
             nationList:{},
             majorData: {  // 专业代码
@@ -258,6 +335,10 @@
                 careerOne: {},
                 careerTwo: {},
                 careerThree: {}
+            },areaData: {  // 地区联动
+                areaOne: {},
+                areaTwo: {},
+                areaThree: {}
             }
         }
 
@@ -328,6 +409,42 @@
 
                         axios.get('/dict/career?level='+9+"&code_value2="+response.data[0].code_value2).then(function (response){
                             mainData.careerData.careerThree = response.data
+
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+
+                axios.get('/dict/area?level='+1).then(function (response){
+                    mainData.areaData.areaOne = []
+                    for (let i = 0; i < response.data.length; i++) {
+                        const item = response.data[i]
+                        mainData.areaData.areaOne.push({"code_name":item.ProvinceName,"code_value2":item.ProvinceID})
+                    }
+
+                    axios.get('/dict/area?level='+2+"&code_value2="+mainData.areaData.areaOne[0].code_value2).then(function (response){
+                        mainData.areaData.areaTwo = []
+
+                        for (let i = 0; i < response.data.length; i++) {
+                            const item = response.data[i]
+                            mainData.areaData.areaTwo.push({"code_name":item.CityName,"code_value2":item.CityID})
+                        }
+
+                        axios.get('/dict/area?level='+3+"&code_value2="+mainData.areaData.areaTwo[0].code_value2).then(function (response){
+                            mainData.areaData.areaThree = []
+                            for (let i = 0; i < response.data.length; i++) {
+                                const item = response.data[i]
+                                mainData.areaData.areaThree.push({"code_name":item.DistrictName,"code_value2":item.DistrictID})
+                            }
 
                         }).catch(function (error) {
                             console.log(error);
