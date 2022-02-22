@@ -4,6 +4,16 @@
 
 支持本地部署、远程直接访问
 
+```
+民族
+专业代码
+行业代码
+职业工种
+地区
+```
+
+
+
 
 
 ## 部署(use)
@@ -58,7 +68,7 @@ http://www.wangshuo.cool:5444
 
 ## 后续
 
-目前只完成了 民族查询接口，其他接口待后续完善
+目前完成了 民族、专业代码、行业代码、职业工种、地区 其他接口待后续完善
 
 ```bash
 mysql> select distinct code_value1 from code_dictionary ;
@@ -66,12 +76,9 @@ mysql> select distinct code_value1 from code_dictionary ;
 | code_value1        |
 +--------------------+
 | 需求年度           |
-| 行业代码           |
-| 职业工种           |
 | 人员规模           |
 | 事业单位类型       |
 | 人才类别           |
-| 民族               |
 | 学历               |
 | 专业技术职称       |
 | 技能等级           |
@@ -79,7 +86,6 @@ mysql> select distinct code_value1 from code_dictionary ;
 | 审核状态           |
 | 人才补充方式       |
 | 经办机构           |
-| 专业代码           |
 | 学位               |
 | 菜单类型           |
 | 岗位类型           |
