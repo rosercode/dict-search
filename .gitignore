@@ -1,8 +1,5 @@
 HELP.md
-mvnw.cmd
-mvnw
 *.iml
 target/
-.mvn/
 .idea/
 logs/
