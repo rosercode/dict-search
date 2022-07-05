@@ -1,4 +1,4 @@
-package com.example.dict.utils;
+package cool.wangshuo.ds.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

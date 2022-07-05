@@ -1,9 +1,8 @@
-package com.example.dict.mapper;
+package cool.wangshuo.ds.mapper;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.dict.model.ParamModel1;
-import com.example.dict.po.Dict1;
-import io.swagger.models.auth.In;
+import cool.wangshuo.ds.model.ParamModel1;
+import cool.wangshuo.ds.po.Dict1;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

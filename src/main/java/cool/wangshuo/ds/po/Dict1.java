@@ -1,4 +1,4 @@
-package com.example.dict.po;
+package cool.wangshuo.ds.po;
 
 
 import lombok.Data;

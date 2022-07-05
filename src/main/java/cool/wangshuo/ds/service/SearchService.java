@@ -1,13 +1,11 @@
-package com.example.dict.service;
+package cool.wangshuo.ds.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.dict.model.ParamModel1;
-import com.example.dict.po.Dict1;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import cool.wangshuo.ds.model.ParamModel1;
+import cool.wangshuo.ds.po.Dict1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.dict.mapper.DictMapper;
+import cool.wangshuo.ds.mapper.DictMapper;
 
 import java.util.List;
 

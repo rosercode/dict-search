@@ -1,4 +1,4 @@
-package com.example.dict.model;
+package cool.wangshuo.ds.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

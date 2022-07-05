@@ -1,6 +1,6 @@
-package com.example.dict.component.filter;
+package cool.wangshuo.ds.component.filter;
 
-import com.example.dict.utils.CommonUtils;
+import cool.wangshuo.ds.utils.CommonUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.logging.Log;

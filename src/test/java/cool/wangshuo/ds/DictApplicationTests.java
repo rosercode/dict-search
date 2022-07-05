@@ -1,4 +1,4 @@
-package com.example.dict;
+package cool.wangshuo.ds;
 
 class DictApplicationTests {
 

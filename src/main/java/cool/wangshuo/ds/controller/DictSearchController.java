@@ -1,10 +1,10 @@
-package com.example.dict.controller;
+package cool.wangshuo.ds.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.dict.model.ParamModel1;
-import com.example.dict.po.Dict1;
-import com.example.dict.service.SearchService;
+import cool.wangshuo.ds.model.ParamModel1;
+import cool.wangshuo.ds.po.Dict1;
+import cool.wangshuo.ds.service.SearchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
