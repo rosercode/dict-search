@@ -7,9 +7,9 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: password
-    url: jdbc:mysql://localhost:3306/dict?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
-    username: dict
+    url: ENC(TqfV6WVHROvDLKq/4sLEz658imEI+lJc3maek9Nm7DzjwDKjS/1YBsx0q8XCzJpogvfq3WEUmfno8RLL1FWDfcLQkXAh4c/sPhDeUId/YmBfz0fUKD+TK5y8RyagopHSJdmXxk6njkjPW7k92+3Kdbj2gDwcG9eZ4uzsmSxTsTocbLi5uDDyCRQLjQRoeL+t5mdOXZir++Q=)
+    username: root
+    password: ENC(RQBRaZSsYZ2XACRWqzPc1BWLcsY1Qfa5EHhq3Lbibqg=)
   # 热部署
   devtools:
     restart:
