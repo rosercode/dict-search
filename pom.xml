@@ -8,7 +8,7 @@
         <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>cool.wangshuo</groupId>
     <artifactId>dict-search</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>dict-search</name>
