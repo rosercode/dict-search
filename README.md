@@ -2,8 +2,6 @@
 
 本项目提供了常见的字典查询服务【目前35种】【后期不定时更新】
 
-支持本地部署、远程直接访问
-
 ```
 民族
 专业代码
@@ -12,9 +10,9 @@
 地区
 ```
 
+只需要在数据库中添加一张表，就可以为你的 前端（客户端）下拉列表或者联动下拉列表提供候选项
 
-
-
+这里提供了一个简单的实例
 
 ## 部署(use)
 
@@ -25,7 +23,7 @@
 克隆项目
 
 ```
-git clone https://github.com/rosercoder/dict-search
+git clone https://github.com/rosercoder/dict-search.git
 ```
 
 导入数据库文件
@@ -33,8 +31,6 @@ git clone https://github.com/rosercoder/dict-search
 ```
 mysql> source res/dict.sql
 ```
-
-
 
 修改数据库配置
 
@@ -46,17 +42,11 @@ mvn spring-boot:run
 
 访问项目
 
+```
 http://127.0.0.1:5444
+```
 
-
-
-### 远程服务
-
-项目在
-
-提供接口，可直接访问，如何访问[参数等等]，查询
-
-http://www.wangshuo.cool:5444
+在线测试实例：[http://47.100.57.211:5444](http://47.100.57.211:5444)
 
 
 
